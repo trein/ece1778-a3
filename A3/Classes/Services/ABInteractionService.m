@@ -44,17 +44,10 @@
     [self.locationManager startUpdatingLocation];
 }
 
+#pragma mark -
+#pragma mark Interaction Business Logic
 - (void)interact {
-    NSError *error = nil;
     [self takePicture];
-    if (error) {
-        NSLog(@"[%@] Error detected %@", self, error);
-        [[NSNotificationCenter defaultCenter] postNotificationName:kOperationFailure
-                                                            object:NSLocalizedString(@"kErrorAccelerometerMessage", @"Error reading accelerometer data.")];
-    } else {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kOperationSuccess
-                                                            object:NSLocalizedString(@"kPhotoTakenMessage", @"Photo taken!")];
-    }
 }
 
 - (void)takePicture {
@@ -91,10 +84,18 @@
     NSLog(@"[%@] About to request a capture from: %@", self, self.cameraOutput);
     [self.cameraOutput captureStillImageAsynchronouslyFromConnection:videoConnection
                                                    completionHandler:^(CMSampleBufferRef buffer, NSError *error) {
-                                                       if (buffer != NULL) {
-                                                           [self saveImage:buffer];
-                                                       }
+                                                       [self handleCaptureCallback:buffer error:error];
                                                    }];
+}
+
+- (void)handleCaptureCallback:(CMSampleBufferRef)buffer error:(NSError *)error {
+    if (buffer == NULL || error != nil) {
+        NSLog(@"[%@] Error detected %@", self, error);
+        [[NSNotificationCenter defaultCenter] postNotificationName:kOperationFailure
+                                                            object:NSLocalizedString(@"kErrorAccelerometerMessage", @"Error reading accelerometer data.")];
+    } else {
+        [self saveImage:buffer];
+    }
 }
 
 - (void)saveImage:(CMSampleBufferRef)buffer {
@@ -110,6 +111,8 @@
                                                             longitude:self.currentLocation.coordinate.longitude];
 
     [geoService addGeoPicture:geoPicture withAssociatedImage:photo];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kOperationSuccess
+                                                        object:NSLocalizedString(@"kPhotoTakenMessage", @"Photo taken!")];
 }
 
 #pragma mark -

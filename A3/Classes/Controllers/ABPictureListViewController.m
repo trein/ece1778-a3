@@ -28,7 +28,7 @@ static NSString *const kCellId = @"kCellId";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellId];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kCellId];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kCellId];
     }
     ABGeoPicture *picture = [[self.dataStore storedPictures] objectAtIndex:indexPath.row];
 
@@ -52,7 +52,8 @@ static NSString *const kCellId = @"kCellId";
 #pragma mark -
 #pragma mark UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // display picture
+    ABGeoPicture *picture = [[self.dataStore storedPictures] objectAtIndex:indexPath.row];
+    NSLog(@"[%@] Selected geo picture %@", self, picture);
 }
 
 - (void)viewDidLoad {
@@ -66,6 +67,10 @@ static NSString *const kCellId = @"kCellId";
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (NSString *)description {
+    return @"Picture List View Controller";
 }
 
 @end

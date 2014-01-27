@@ -19,15 +19,15 @@
         _latitude = [NSNumber numberWithDouble:latitude];
         _longitude = [NSNumber numberWithDouble:longitude];
     }
-    return nil;
+    return self;
 }
 
 - (NSString *)title {
-    return @"";
+    return [NSString stringWithFormat:@"Photo: %@", self.imageName];
 }
 
 - (NSString *)details {
-    return nil;
+    return [NSString stringWithFormat:@"Taken @ (%@ : %@)", [self.latitude stringValue], [self.longitude stringValue]];
 }
 
 #pragma mark -
@@ -45,6 +45,10 @@
         _longitude = [decoder decodeObjectForKey:@"longitude"];
     }
     return self;
+}
+
+- (NSString *)description {
+    return [self title];
 }
 
 @end

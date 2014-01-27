@@ -39,4 +39,8 @@
     [super viewWillDisappear:animated];
 }
 
+- (NSString *)description {
+    return @"Shake View Controller";
+}
+
 @end

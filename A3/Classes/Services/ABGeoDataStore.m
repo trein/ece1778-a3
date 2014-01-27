@@ -29,7 +29,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.pictures = [NSMutableArray new];
+        self.pictures = nil;
     }
     return self;
 }
@@ -66,7 +66,9 @@
 
 - (void)saveImage:(UIImage *)image withName:(NSString *)name {
     NSLog(@"[%@] Saving image %@ into file system", self, name);
-    [UIImagePNGRepresentation(image) writeToFile:[self createPathForFile:name] atomically:YES];
+    if (![UIImagePNGRepresentation(image) writeToFile:[self createPathForFile:name] atomically:YES]) {
+        NSLog(@"[%@] Error saving image %@ into file system", self, name);
+    }
 }
 
 - (UIImage *)loadImage:(NSString *)name {
