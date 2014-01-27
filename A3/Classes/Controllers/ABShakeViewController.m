@@ -5,6 +5,7 @@
 
 #import "ABShakeViewController.h"
 #import "ABInteractionService.h"
+#import "SVProgressHUD.h"
 
 @interface ABShakeViewController ()
 
@@ -15,6 +16,7 @@
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
     if (motion == UIEventSubtypeMotionShake) {
         NSLog(@"[%@] Shake gesture recognized!", self);
+        [SVProgressHUD showWithStatus:NSLocalizedString(@"kTakingPictureMessage", @"Taking picture...") maskType:SVProgressHUDMaskTypeBlack];
         [[ABInteractionService sharedInstance] interact];
     }
 }

@@ -5,7 +5,7 @@
 
 #import "ABViewController.h"
 #import "ABConstants.h"
-
+#import "SVProgressHUD.h"
 
 @implementation ABViewController
 
@@ -19,7 +19,7 @@
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"kErrorMessageTitle", @"Error message")
                                                     message:message
                                                    delegate:nil
-                                          cancelButtonTitle:@"OK"
+                                          cancelButtonTitle:NSLocalizedString(@"kOK", @"OK")
                                           otherButtonTitles:nil];
     [alert show];
 }
@@ -28,16 +28,17 @@
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"kInfoMessageTitle", @"Information message")
                                                     message:message
                                                    delegate:nil
-                                          cancelButtonTitle:@"OK"
+                                          cancelButtonTitle:NSLocalizedString(@"kOK", @"OK")
                                           otherButtonTitles:nil];
     [alert show];
 }
 
 - (void)handleSuccess:(NSNotification *)notification {
-    [self showInfoMessage:notification.object];
+    [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"kCompleteMessage", @"Complete")];
 }
 
 - (void)handleFailure:(NSNotification *)notification {
+    [SVProgressHUD dismiss];
     [self showErrorMessage:notification.object];
 }
 

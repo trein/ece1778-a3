@@ -27,6 +27,8 @@
 		69801F498471725C6C6D006B /* ABViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69801B9591698D866416F5BC /* ABViewController.m */; };
 		69801FEA8D7200A965299D66 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 698015C01EA5EB1523CD6296 /* Images.xcassets */; };
 		69801FFF572A76062596EE76 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6980154C480AEDC2CAC0456F /* InfoPlist.strings */; };
+		F569034818961AE50049C7F5 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F569034518961AE50049C7F5 /* SVProgressHUD.bundle */; };
+		F569034918961AE50049C7F5 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = F569034718961AE50049C7F5 /* SVProgressHUD.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +73,10 @@
 		69801F5E130D2C17BF9F2384 /* ABGeoDataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABGeoDataStore.h; sourceTree = "<group>"; };
 		69801F8107B51C8E9098765B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		69801FCCAC2884462DFAE939 /* A3Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.info; path = "A3Tests-Info.plist"; sourceTree = "<group>"; };
+		F569034418961AE50049C7F5 /* SVProgressHUD-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVProgressHUD-Prefix.pch"; sourceTree = "<group>"; };
+		F569034518961AE50049C7F5 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
+		F569034618961AE50049C7F5 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
+		F569034718961AE50049C7F5 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,12 +157,13 @@
 		698017E5FF009A4C8581E5D5 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				698013ED6BB5B44C22278499 /* ABAppDelegate.h */,
-				698011AC2DA4F95C35BFD3EA /* ABAppDelegate.m */,
+				F569034218961AB80049C7F5 /* Third Party */,
 				698015158A15BDF74ACF3685 /* Controllers */,
 				69801DE91A2AC153F30B8093 /* Models */,
 				6980135662643D626535FE67 /* Services */,
 				6980176F8EA89A8D0BC98B14 /* Common */,
+				698013ED6BB5B44C22278499 /* ABAppDelegate.h */,
+				698011AC2DA4F95C35BFD3EA /* ABAppDelegate.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -220,6 +227,26 @@
 				69801A26F6C3F4AB1A6772C3 /* ABGeoPicture.m */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		F569034218961AB80049C7F5 /* Third Party */ = {
+			isa = PBXGroup;
+			children = (
+				F569034318961AE50049C7F5 /* SVProgressHUD */,
+			);
+			name = "Third Party";
+			path = ..;
+			sourceTree = "<group>";
+		};
+		F569034318961AE50049C7F5 /* SVProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				F569034418961AE50049C7F5 /* SVProgressHUD-Prefix.pch */,
+				F569034518961AE50049C7F5 /* SVProgressHUD.bundle */,
+				F569034618961AE50049C7F5 /* SVProgressHUD.h */,
+				F569034718961AE50049C7F5 /* SVProgressHUD.m */,
+			);
+			path = SVProgressHUD;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -300,6 +327,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F569034818961AE50049C7F5 /* SVProgressHUD.bundle in Resources */,
 				69801FFF572A76062596EE76 /* InfoPlist.strings in Resources */,
 				69801FEA8D7200A965299D66 /* Images.xcassets in Resources */,
 				69801F39F1372B60B4FA5B71 /* Main.storyboard in Resources */,
@@ -319,6 +347,7 @@
 				69801EF62E42C0943DEC438C /* ABShakeViewController.m in Sources */,
 				69801A191283502E2C6E0F9B /* ABPictureListViewController.m in Sources */,
 				69801B57A645F1A22597974C /* ABGeoPicture.m in Sources */,
+				F569034918961AE50049C7F5 /* SVProgressHUD.m in Sources */,
 				6980165B606E47D3CE2EDB99 /* ABInteractionService.m in Sources */,
 				69801E0FBD4345204EA42211 /* ABGeoDataStore.m in Sources */,
 				69801F498471725C6C6D006B /* ABViewController.m in Sources */,

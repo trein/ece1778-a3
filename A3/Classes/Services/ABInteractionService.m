@@ -51,7 +51,7 @@
                                                             object:NSLocalizedString(@"kErrorAccelerometerMessage", @"Error reading accelerometer data.")];
     } else {
         [[NSNotificationCenter defaultCenter] postNotificationName:kOperationSuccess
-                                                            object:NSLocalizedString(@"kPhotoTakenMessage", @"Photo taken!.")];
+                                                            object:NSLocalizedString(@"kPhotoTakenMessage", @"Photo taken!")];
     }
 }
 
@@ -112,22 +112,27 @@
                             NSData *imageData = [AVCaptureStillImageOutput
                                     jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
 
-                            UIImage *photo = [[UIImage alloc] initWithData:imageData];
-
-                            time_t unixTime = (time_t) [[NSDate date] timeIntervalSince1970];
-                            NSString *photoFilename = [NSString stringWithFormat:@"picture_%ld", unixTime];
-                            ABGeoDataStore *geoService = [ABGeoDataStore sharedInstance];
-                            ABGeoPicture *geoPicture = [[ABGeoPicture alloc] initWithFilename:photoFilename
-                                                                                     latitude:self.currentLocation.coordinate.latitude
-                                                                                    longitude:self.currentLocation.coordinate.longitude];
-
-                            [geoService addGeoPicture:geoPicture withAssociatedImage:photo];
+                            [self saveImage:imageData];
                         }
                     }];
                 }
             }
         }
     }
+}
+
+- (void)saveImage:(NSData *)imageData {
+    UIImage *photo = [[UIImage alloc] initWithData:imageData];
+
+    time_t unixTime = (time_t) [[NSDate date] timeIntervalSince1970];
+    NSString *photoFilename = [NSString stringWithFormat:@"picture_%ld", unixTime];
+
+    ABGeoDataStore *geoService = [ABGeoDataStore sharedInstance];
+    ABGeoPicture *geoPicture = [[ABGeoPicture alloc] initWithFilename:photoFilename
+                                                             latitude:self.currentLocation.coordinate.latitude
+                                                            longitude:self.currentLocation.coordinate.longitude];
+
+    [geoService addGeoPicture:geoPicture withAssociatedImage:photo];
 }
 
 #pragma mark -
