@@ -13,5 +13,5 @@
 
 - (void)startMonitoring;
 
-- (void)interact;
+- (void)saveImage:(UIImage *)photo;
 @end

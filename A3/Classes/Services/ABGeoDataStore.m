@@ -56,23 +56,23 @@
 }
 
 - (void)saveGeoPicture:(ABGeoPicture *)picture {
-    NSLog(@"[%@] Saving geo picture %@ into file system", self, picture);
+    ABLog(@"[%@] Saving geo picture %@ into file system", self, picture);
     [self.pictures addObject:picture];
 
     if (![NSKeyedArchiver archiveRootObject:self.pictures toFile:[self createPathForFile:kDataFile]]) {
-        NSLog(@"[%@] Error saving geo picture %@ into file system", self, picture);
+        ABLog(@"[%@] Error saving geo picture %@ into file system", self, picture);
     }
 }
 
 - (void)saveImage:(UIImage *)image withName:(NSString *)name {
-    NSLog(@"[%@] Saving image %@ into file system", self, name);
+    ABLog(@"[%@] Saving image %@ into file system", self, name);
     if (![UIImagePNGRepresentation(image) writeToFile:[self createPathForFile:name] atomically:YES]) {
-        NSLog(@"[%@] Error saving image %@ into file system", self, name);
+        ABLog(@"[%@] Error saving image %@ into file system", self, name);
     }
 }
 
 - (UIImage *)loadImage:(NSString *)name {
-    NSLog(@"[%@] Loading image %@ form file system", self, name);
+    ABLog(@"[%@] Loading image %@ form file system", self, name);
     return [UIImage imageWithContentsOfFile:[self createPathForFile:name]];
 }
 

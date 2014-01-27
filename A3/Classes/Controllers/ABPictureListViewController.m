@@ -10,7 +10,7 @@
 static NSString *const kCellId = @"kCellId";
 
 @interface ABPictureListViewController ()
-@property (strong, nonatomic) ABGeoDataStore *dataStore;
+@property(strong, nonatomic) ABGeoDataStore *dataStore;
 @end
 
 @implementation ABPictureListViewController
@@ -41,6 +41,7 @@ static NSString *const kCellId = @"kCellId";
     cell.detailTextLabel.text = [picture details];
 
     cell.imageView.image = [self.dataStore loadImage:picture.imageName];
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
     return cell;
 }
@@ -53,7 +54,8 @@ static NSString *const kCellId = @"kCellId";
 #pragma mark UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ABGeoPicture *picture = [[self.dataStore storedPictures] objectAtIndex:indexPath.row];
-    NSLog(@"[%@] Selected geo picture %@", self, picture);
+    ABLog(@"[%@] Selected geo picture %@", self, picture);
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (void)viewDidLoad {

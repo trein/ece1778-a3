@@ -3,7 +3,7 @@
 
 
 "kPhotoTakenMessage" = "Photo taken!";
-"kErrorAccelerometerMessage" = "Error reading accelerometer data.";
+"kErrorTakingPhotoMessage" = "Error taking a new photo.";
 "kErrorMessageTitle" = "Error message";
 "kInfoMessageTitle" = "Information message";
 "kCompleteMessage" = "Complete";

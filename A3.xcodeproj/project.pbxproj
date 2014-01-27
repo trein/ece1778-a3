@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6980104241F0C251E1B3407E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6980113BB974545D1571D7E4 /* Foundation.framework */; };
+		6980106DE587D38F1FF5413F /* ABCameraManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6980104B84FB849BA84338B2 /* ABCameraManager.m */; };
 		698010B0C2E60836AEDE62B9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6980130160ED39D8879165AE /* main.m */; };
 		698010C9DD39A9C55E1FE435 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69801D9004DE816690359AB5 /* Localizable.strings */; };
 		698013EB543B0A9ACCC8D4A7 /* A3Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 698014962ECDA055C85033DC /* A3Tests.m */; };
@@ -45,6 +46,7 @@
 
 /* Begin PBXFileReference section */
 		6980100D47E757DE7AFC1BF3 /* ABShakeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABShakeViewController.h; sourceTree = "<group>"; };
+		6980104B84FB849BA84338B2 /* ABCameraManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABCameraManager.m; sourceTree = "<group>"; };
 		6980104F882B75D15A29C70C /* A3Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = A3Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		698011328D25C510F55B2208 /* A3-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "A3-Prefix.pch"; sourceTree = "<group>"; };
 		6980113BB974545D1571D7E4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -68,6 +70,7 @@
 		69801B9591698D866416F5BC /* ABViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABViewController.m; sourceTree = "<group>"; };
 		69801BA45F3665F34C101135 /* ABPictureListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABPictureListViewController.m; sourceTree = "<group>"; };
 		69801C26BE28E06B6D84C028 /* ABGeoDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABGeoDataStore.m; sourceTree = "<group>"; };
+		69801C75E1E40F98E0E4E85D /* ABCameraManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABCameraManager.h; sourceTree = "<group>"; };
 		69801CA4CE885E2E2413F558 /* ABShakeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABShakeViewController.m; sourceTree = "<group>"; };
 		69801D02DD37964FAED700C6 /* ABViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABViewController.h; sourceTree = "<group>"; };
 		69801D9004DE816690359AB5 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
@@ -135,6 +138,8 @@
 				6980114E299800F20291669F /* ABInteractionService.m */,
 				69801C26BE28E06B6D84C028 /* ABGeoDataStore.m */,
 				69801F5E130D2C17BF9F2384 /* ABGeoDataStore.h */,
+				6980104B84FB849BA84338B2 /* ABCameraManager.m */,
+				69801C75E1E40F98E0E4E85D /* ABCameraManager.h */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -359,6 +364,7 @@
 				6980165B606E47D3CE2EDB99 /* ABInteractionService.m in Sources */,
 				69801E0FBD4345204EA42211 /* ABGeoDataStore.m in Sources */,
 				69801F498471725C6C6D006B /* ABViewController.m in Sources */,
+				6980106DE587D38F1FF5413F /* ABCameraManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

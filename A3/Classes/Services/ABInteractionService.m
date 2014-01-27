@@ -3,7 +3,6 @@
 // Copyright (c) 2014 Ackbox. All rights reserved.
 //
 
-#import <AVFoundation/AVFoundation.h>
 #import "ABInteractionService.h"
 #import "ABGeoDataStore.h"
 #import "ABGeoPicture.h"
@@ -12,8 +11,6 @@
 
 @interface ABInteractionService ()
 @property(nonatomic, strong) CLLocationManager *locationManager;
-@property(nonatomic, strong) AVCaptureStillImageOutput *cameraOutput;
-@property(nonatomic, strong) AVCaptureSession *session;
 @property(strong) CLLocation *currentLocation;
 @end
 
@@ -46,62 +43,7 @@
 
 #pragma mark -
 #pragma mark Interaction Business Logic
-- (void)interact {
-    [self takePicture];
-}
-
-- (void)takePicture {
-    NSError *error = nil;
-    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-    AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device error:&error];
-
-    if (!input) {
-        NSLog(@"[%@] Error trying to open camera: %@", self, error);
-    }
-
-    self.cameraOutput = [[AVCaptureStillImageOutput alloc] init];
-    [self.cameraOutput setOutputSettings:@{AVVideoCodecKey : AVVideoCodecJPEG}];
-
-    self.session = [[AVCaptureSession alloc] init];
-    self.session.sessionPreset = AVCaptureSessionPresetMedium;
-    [self.session addInput:input];
-    [self.session addOutput:self.cameraOutput];
-    [self.session startRunning];
-
-    AVCaptureConnection *videoConnection = nil;
-    for (AVCaptureConnection *connection in self.cameraOutput.connections) {
-        for (AVCaptureInputPort *port in [connection inputPorts]) {
-            if ([[port mediaType] isEqual:AVMediaTypeVideo]) {
-                videoConnection = connection;
-                break;
-            }
-        }
-        if (videoConnection) {
-            break;
-        }
-    }
-
-    NSLog(@"[%@] About to request a capture from: %@", self, self.cameraOutput);
-    [self.cameraOutput captureStillImageAsynchronouslyFromConnection:videoConnection
-                                                   completionHandler:^(CMSampleBufferRef buffer, NSError *error) {
-                                                       [self handleCaptureCallback:buffer error:error];
-                                                   }];
-}
-
-- (void)handleCaptureCallback:(CMSampleBufferRef)buffer error:(NSError *)error {
-    if (buffer == NULL || error != nil) {
-        NSLog(@"[%@] Error detected %@", self, error);
-        [[NSNotificationCenter defaultCenter] postNotificationName:kOperationFailure
-                                                            object:NSLocalizedString(@"kErrorAccelerometerMessage", @"Error reading accelerometer data.")];
-    } else {
-        [self saveImage:buffer];
-    }
-}
-
-- (void)saveImage:(CMSampleBufferRef)buffer {
-    NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:buffer];
-    UIImage *photo = [[UIImage alloc] initWithData:imageData];
-
+- (void)saveImage:(UIImage *)photo {
     time_t unixTime = (time_t) [[NSDate date] timeIntervalSince1970];
     NSString *photoFilename = [NSString stringWithFormat:@"picture_%ld", unixTime];
 
@@ -126,7 +68,7 @@
     NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
 
     if (abs(howRecent) < 5.0) {
-        NSLog(@"[%@] Update latitude %+.6f, longitude %+.6f\n", self, newLocation.coordinate.latitude, newLocation.coordinate.longitude);
+        ABLog(@"[%@] Update latitude %+.6f, longitude %+.6f\n", self, newLocation.coordinate.latitude, newLocation.coordinate.longitude);
         self.currentLocation = newLocation;
     }
 }

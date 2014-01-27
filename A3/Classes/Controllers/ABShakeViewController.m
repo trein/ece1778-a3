@@ -5,24 +5,31 @@
 
 #import "ABShakeViewController.h"
 #import "SVProgressHUD.h"
-#import "ABInteractionService.h"
+#import "ABCameraManager.h"
 
 @interface ABShakeViewController ()
-
+@property (nonatomic, strong) ABCameraManager *cameraManager;
 @end
 
 @implementation ABShakeViewController
 
+- (ABCameraManager *)cameraManager {
+    if (_cameraManager == nil) {
+        _cameraManager = [ABCameraManager new];
+    }
+    return _cameraManager;
+}
+
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
     if (motion == UIEventSubtypeMotionShake) {
-        NSLog(@"[%@] Shake gesture recognized!", self);
+        ABLog(@"[%@] Shake gesture recognized!", self);
         [SVProgressHUD showWithStatus:NSLocalizedString(@"kTakingPictureMessage", @"Taking picture...") maskType:SVProgressHUDMaskTypeBlack];
         [self performSelectorInBackground:@selector(interact) withObject:self];
     }
 }
 
 - (void)interact {
-    [[ABInteractionService sharedInstance] interact];
+    [self.cameraManager takePictureUsingController:self];
 }
 
 - (BOOL)canBecomeFirstResponder {
