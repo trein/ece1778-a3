@@ -12,6 +12,8 @@
 
 @interface ABInteractionService ()
 @property(nonatomic, strong) CLLocationManager *locationManager;
+@property(nonatomic, strong) AVCaptureStillImageOutput *cameraOutput;
+@property(nonatomic, strong) AVCaptureSession *session;
 @property(strong) CLLocation *currentLocation;
 @end
 
@@ -56,72 +58,47 @@
 }
 
 - (void)takePicture {
-    AVCaptureDevice *frontalCamera;
-    NSArray *allCameras = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
+    NSError *error = nil;
+    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device error:&error];
 
-// Find the frontal camera.
-    for (int i = 0; i < allCameras.count; i++) {
-        AVCaptureDevice *camera = [allCameras objectAtIndex:i];
-
-        if (camera.position == AVCaptureDevicePositionFront) {
-            frontalCamera = camera;
-        }
+    if (!input) {
+        NSLog(@"[%@] Error trying to open camera: %@", self, error);
     }
 
-// If we did not find the camera then do not take picture.
-    if (frontalCamera != nil ) {
-        // Start the process of getting a picture.
-        AVCaptureSession *session = [[AVCaptureSession alloc] init];
+    self.cameraOutput = [[AVCaptureStillImageOutput alloc] init];
+    [self.cameraOutput setOutputSettings:@{AVVideoCodecKey : AVVideoCodecJPEG}];
 
-        // Setup instance of input with frontal camera and add to session.
-        NSError *error;
-        AVCaptureDeviceInput *input =
-                [AVCaptureDeviceInput deviceInputWithDevice:frontalCamera error:&error];
+    self.session = [[AVCaptureSession alloc] init];
+    self.session.sessionPreset = AVCaptureSessionPresetMedium;
+    [self.session addInput:input];
+    [self.session addOutput:self.cameraOutput];
+    [self.session startRunning];
 
-        if (!error && [session canAddInput:input]) {
-            // Add frontal camera to this session.
-            [session addInput:input];
-
-            // We need to capture still image.
-            AVCaptureStillImageOutput *output = [[AVCaptureStillImageOutput alloc] init];
-
-            // Captured image. settings.
-            [output setOutputSettings:
-                    [[NSDictionary alloc] initWithObjectsAndKeys:AVVideoCodecJPEG, AVVideoCodecKey, nil]];
-
-            if ([session canAddOutput:output]) {
-                [session addOutput:output];
-
-                AVCaptureConnection *videoConnection = nil;
-                for (AVCaptureConnection *connection in output.connections) {
-                    for (AVCaptureInputPort *port in [connection inputPorts]) {
-                        if ([[port mediaType] isEqual:AVMediaTypeVideo]) {
-                            videoConnection = connection;
-                            break;
-                        }
-                    }
-                    if (videoConnection) {break;}
-                }
-
-                // Finally take the picture
-                if (videoConnection) {
-                    [session startRunning];
-                    [output captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
-
-                        if (imageDataSampleBuffer != NULL) {
-                            NSData *imageData = [AVCaptureStillImageOutput
-                                    jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
-
-                            [self saveImage:imageData];
-                        }
-                    }];
-                }
+    AVCaptureConnection *videoConnection = nil;
+    for (AVCaptureConnection *connection in self.cameraOutput.connections) {
+        for (AVCaptureInputPort *port in [connection inputPorts]) {
+            if ([[port mediaType] isEqual:AVMediaTypeVideo]) {
+                videoConnection = connection;
+                break;
             }
         }
+        if (videoConnection) {
+            break;
+        }
     }
+
+    NSLog(@"[%@] About to request a capture from: %@", self, self.cameraOutput);
+    [self.cameraOutput captureStillImageAsynchronouslyFromConnection:videoConnection
+                                                   completionHandler:^(CMSampleBufferRef buffer, NSError *error) {
+                                                       if (buffer != NULL) {
+                                                           [self saveImage:buffer];
+                                                       }
+                                                   }];
 }
 
-- (void)saveImage:(NSData *)imageData {
+- (void)saveImage:(CMSampleBufferRef)buffer {
+    NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:buffer];
     UIImage *photo = [[UIImage alloc] initWithData:imageData];
 
     time_t unixTime = (time_t) [[NSDate date] timeIntervalSince1970];

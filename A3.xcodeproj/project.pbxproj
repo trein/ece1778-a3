@@ -11,6 +11,7 @@
 		698010B0C2E60836AEDE62B9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6980130160ED39D8879165AE /* main.m */; };
 		698010C9DD39A9C55E1FE435 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69801D9004DE816690359AB5 /* Localizable.strings */; };
 		698013EB543B0A9ACCC8D4A7 /* A3Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 698014962ECDA055C85033DC /* A3Tests.m */; };
+		6980159EC167A210C4FA6857 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69801B58C86C35E62738670B /* QuartzCore.framework */; };
 		698015E7676F67C64E33C47D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69801A6990CC03D154888F49 /* CoreGraphics.framework */; };
 		6980165B606E47D3CE2EDB99 /* ABInteractionService.m in Sources */ = {isa = PBXBuildFile; fileRef = 6980114E299800F20291669F /* ABInteractionService.m */; };
 		698016E9E1DBB5ADF3213729 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 698016B6136A56D7F8AD8EC5 /* XCTest.framework */; };
@@ -20,6 +21,7 @@
 		69801B0BE16AC02F931F3E96 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 698018E6C7E17E997EFBA7B7 /* InfoPlist.strings */; };
 		69801B57A645F1A22597974C /* ABGeoPicture.m in Sources */ = {isa = PBXBuildFile; fileRef = 69801A26F6C3F4AB1A6772C3 /* ABGeoPicture.m */; };
 		69801B97CAA827FBDCC3C069 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6980194DBE0238C7E34A4302 /* UIKit.framework */; };
+		69801C2692690505F00A38F7 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69801173EFBEEE00B2F387C9 /* AVFoundation.framework */; };
 		69801E0FBD4345204EA42211 /* ABGeoDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 69801C26BE28E06B6D84C028 /* ABGeoDataStore.m */; };
 		69801EF0626C607FE99FFB2F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6980194DBE0238C7E34A4302 /* UIKit.framework */; };
 		69801EF62E42C0943DEC438C /* ABShakeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69801CA4CE885E2E2413F558 /* ABShakeViewController.m */; };
@@ -47,6 +49,7 @@
 		698011328D25C510F55B2208 /* A3-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "A3-Prefix.pch"; sourceTree = "<group>"; };
 		6980113BB974545D1571D7E4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6980114E299800F20291669F /* ABInteractionService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABInteractionService.m; sourceTree = "<group>"; };
+		69801173EFBEEE00B2F387C9 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		698011AC2DA4F95C35BFD3EA /* ABAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABAppDelegate.m; sourceTree = "<group>"; };
 		6980130160ED39D8879165AE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		698013ED6BB5B44C22278499 /* ABAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABAppDelegate.h; sourceTree = "<group>"; };
@@ -61,6 +64,7 @@
 		69801A26F6C3F4AB1A6772C3 /* ABGeoPicture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABGeoPicture.m; sourceTree = "<group>"; };
 		69801A6990CC03D154888F49 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		69801B0FEC18E482D2D3DDBA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		69801B58C86C35E62738670B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		69801B9591698D866416F5BC /* ABViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABViewController.m; sourceTree = "<group>"; };
 		69801BA45F3665F34C101135 /* ABPictureListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABPictureListViewController.m; sourceTree = "<group>"; };
 		69801C26BE28E06B6D84C028 /* ABGeoDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABGeoDataStore.m; sourceTree = "<group>"; };
@@ -87,6 +91,8 @@
 				6980104241F0C251E1B3407E /* Foundation.framework in Frameworks */,
 				698015E7676F67C64E33C47D /* CoreGraphics.framework in Frameworks */,
 				69801EF0626C607FE99FFB2F /* UIKit.framework in Frameworks */,
+				6980159EC167A210C4FA6857 /* QuartzCore.framework in Frameworks */,
+				69801C2692690505F00A38F7 /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,6 +222,8 @@
 				69801A6990CC03D154888F49 /* CoreGraphics.framework */,
 				6980194DBE0238C7E34A4302 /* UIKit.framework */,
 				698016B6136A56D7F8AD8EC5 /* XCTest.framework */,
+				69801B58C86C35E62738670B /* QuartzCore.framework */,
+				69801173EFBEEE00B2F387C9 /* AVFoundation.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

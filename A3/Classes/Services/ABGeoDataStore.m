@@ -56,11 +56,11 @@
 }
 
 - (void)saveGeoPicture:(ABGeoPicture *)picture {
-    NSLog(@"[%@] Saving geo picure %@ into file system", self, picture);
+    NSLog(@"[%@] Saving geo picture %@ into file system", self, picture);
     [self.pictures addObject:picture];
 
     if (![NSKeyedArchiver archiveRootObject:self.pictures toFile:[self createPathForFile:kDataFile]]) {
-        NSLog(@"[%@] Error saving geo picure %@ into file system", self, picture);
+        NSLog(@"[%@] Error saving geo picture %@ into file system", self, picture);
     }
 }
 
