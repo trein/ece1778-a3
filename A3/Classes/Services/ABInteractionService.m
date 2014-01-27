@@ -9,7 +9,6 @@
 
 @interface ABInteractionService ()
 @property(nonatomic, strong) CLLocationManager *locationManager;
-@property(nonatomic, strong) CMMotionManager *motionManager;
 @property(strong) CLLocation *currentLocationCoordinates;
 @end
 
@@ -29,17 +28,7 @@
 }
 
 - (void)startMonitoring {
-    [self startMotionManager];
     [self startLocationManager];
-}
-
-- (void)startMotionManager {
-    self.motionManager = [CMMotionManager new];
-    self.motionManager.accelerometerUpdateInterval = kAccelerometerUpdateInterval;
-    [self.motionManager startAccelerometerUpdatesToQueue:[NSOperationQueue currentQueue]
-                                             withHandler:^(CMAccelerometerData *accelerometerData, NSError *error) {
-                                                 [self accelerometerDidAccelerate:accelerometerData withError:error];
-                                             }];
 }
 
 - (void)startLocationManager {
@@ -48,19 +37,6 @@
     self.locationManager.distanceFilter = kCLDistanceFilterNone;
     self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     [self.locationManager startUpdatingLocation];
-}
-
-- (void)accelerometerDidAccelerate:(CMAccelerometerData *)acceleration withError:(NSError *)error {
-    NSLog(@"[%@] Received accelerometer update %@.", self, acceleration);
-
-    if (error) {
-        NSLog(@"%@", error);
-        [[NSNotificationCenter defaultCenter] postNotificationName:kOperationFailure
-                                                            object:NSLocalizedString(@"kErrorAccelerometerMessage", @"Error reading accelerometer data.")];
-    } else {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kOperationSuccess
-                                                            object:NSLocalizedString(@"kPhotoTakenMessage", @"Photo taken!.")];
-    }
 }
 
 - (void)interact {
@@ -74,14 +50,6 @@
                                                             object:NSLocalizedString(@"kPhotoTakenMessage", @"Photo taken!.")];
     }
 }
-
-//- (void)retrieveCurrentLocationAddress:(NSString *)tag {
-//    CLLocation *gpsLocation = [self.locationManager location];
-//    CLLocation *currentLocation = (gpsLocation) ? gpsLocation : [[CLLocation alloc] init];
-//    NSLog(@"[%@] Current location coordinates: %@", self, currentLocation);
-//
-//    [[NMRequestDispatcher sharedInstance] requestAddress:currentLocation tag:tag];
-//}
 
 #pragma mark -
 #pragma mark CLLocationManagerDelegate

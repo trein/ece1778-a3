@@ -5,12 +5,13 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
-#import <CoreMotion/CoreMotion.h>
 
 
 @interface ABInteractionService : NSObject <CLLocationManagerDelegate>
 
 + (ABInteractionService *)sharedInstance;
+
 - (void)startMonitoring;
+
 - (void)interact;
 @end
