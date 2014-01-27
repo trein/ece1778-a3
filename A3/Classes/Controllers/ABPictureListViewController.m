@@ -5,13 +5,12 @@
 
 #import "ABPictureListViewController.h"
 #import "ABGeoPicture.h"
-#import "ABGeoService.h"
+#import "ABGeoDataStore.h"
 
 static NSString *const kCellId = @"kCellId";
 
 @interface ABPictureListViewController ()
-@property (strong, nonatomic) NSArray *pictures;
-@property (strong, nonatomic) ABGeoService *service;
+@property (strong, nonatomic) ABGeoDataStore *dataStore;
 @end
 
 @implementation ABPictureListViewController
@@ -19,7 +18,7 @@ static NSString *const kCellId = @"kCellId";
 - (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        self.service = [ABGeoService sharedInstance];
+        self.dataStore = [ABGeoDataStore sharedInstance];
     }
     return self;
 }
@@ -31,7 +30,7 @@ static NSString *const kCellId = @"kCellId";
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kCellId];
     }
-    ABGeoPicture *picture = [self.pictures objectAtIndex:indexPath.row];
+    ABGeoPicture *picture = [[self.dataStore storedPictures] objectAtIndex:indexPath.row];
 
     cell.textLabel.font = [UIFont boldSystemFontOfSize:15];
     cell.textLabel.textColor = [UIColor darkGrayColor];
@@ -40,11 +39,14 @@ static NSString *const kCellId = @"kCellId";
     cell.detailTextLabel.font = [UIFont boldSystemFontOfSize:12];
     cell.detailTextLabel.textColor = [UIColor lightGrayColor];
     cell.detailTextLabel.text = [picture details];
+
+    cell.imageView.image = [self.dataStore loadImage:picture.imageName];
+
     return cell;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.pictures.count;
+    return [self.dataStore storedPictures].count;
 }
 
 #pragma mark -
@@ -55,8 +57,11 @@ static NSString *const kCellId = @"kCellId";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+}
 
-    self.pictures = [self.service loadPictures];
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {

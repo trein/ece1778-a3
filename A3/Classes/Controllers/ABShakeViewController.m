@@ -14,6 +14,7 @@
 
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
     if (motion == UIEventSubtypeMotionShake) {
+        NSLog(@"[%@] Shake gesture recognized!", self);
         [[ABInteractionService sharedInstance] interact];
     }
 }

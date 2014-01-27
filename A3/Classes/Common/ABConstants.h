@@ -7,4 +7,4 @@
 
 static const NSString *kOperationSuccess = @"kOperationSuccess";
 static const NSString *kOperationFailure = @"kOperationFailure";
-static const NSTimeInterval kAccelerometerUpdateInterval = 1.0/20; //seconds
+static const NSString *kDataFile = @"kGeoPictures.data";

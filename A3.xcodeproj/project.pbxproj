@@ -20,7 +20,7 @@
 		69801B0BE16AC02F931F3E96 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 698018E6C7E17E997EFBA7B7 /* InfoPlist.strings */; };
 		69801B57A645F1A22597974C /* ABGeoPicture.m in Sources */ = {isa = PBXBuildFile; fileRef = 69801A26F6C3F4AB1A6772C3 /* ABGeoPicture.m */; };
 		69801B97CAA827FBDCC3C069 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6980194DBE0238C7E34A4302 /* UIKit.framework */; };
-		69801E0FBD4345204EA42211 /* ABGeoService.m in Sources */ = {isa = PBXBuildFile; fileRef = 69801C26BE28E06B6D84C028 /* ABGeoService.m */; };
+		69801E0FBD4345204EA42211 /* ABGeoDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 69801C26BE28E06B6D84C028 /* ABGeoDataStore.m */; };
 		69801EF0626C607FE99FFB2F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6980194DBE0238C7E34A4302 /* UIKit.framework */; };
 		69801EF62E42C0943DEC438C /* ABShakeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69801CA4CE885E2E2413F558 /* ABShakeViewController.m */; };
 		69801F39F1372B60B4FA5B71 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 698018A4B55DAD306A24AEE0 /* Main.storyboard */; };
@@ -61,14 +61,14 @@
 		69801B0FEC18E482D2D3DDBA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		69801B9591698D866416F5BC /* ABViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABViewController.m; sourceTree = "<group>"; };
 		69801BA45F3665F34C101135 /* ABPictureListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABPictureListViewController.m; sourceTree = "<group>"; };
-		69801C26BE28E06B6D84C028 /* ABGeoService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABGeoService.m; sourceTree = "<group>"; };
+		69801C26BE28E06B6D84C028 /* ABGeoDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABGeoDataStore.m; sourceTree = "<group>"; };
 		69801CA4CE885E2E2413F558 /* ABShakeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABShakeViewController.m; sourceTree = "<group>"; };
 		69801D02DD37964FAED700C6 /* ABViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABViewController.h; sourceTree = "<group>"; };
 		69801D9004DE816690359AB5 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		69801E15B588C8B9A1561B69 /* A3-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.info; path = "A3-Info.plist"; sourceTree = "<group>"; };
 		69801E9D98FE4DDF96FD7230 /* ABGeoPicture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABGeoPicture.h; sourceTree = "<group>"; };
 		69801EAC9736757FB2C6A251 /* A3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = A3.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		69801F5E130D2C17BF9F2384 /* ABGeoService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABGeoService.h; sourceTree = "<group>"; };
+		69801F5E130D2C17BF9F2384 /* ABGeoDataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABGeoDataStore.h; sourceTree = "<group>"; };
 		69801F8107B51C8E9098765B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		69801FCCAC2884462DFAE939 /* A3Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.info; path = "A3Tests-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -121,8 +121,8 @@
 			children = (
 				698017038FC4A9535F65DE01 /* ABInteractionService.h */,
 				6980114E299800F20291669F /* ABInteractionService.m */,
-				69801C26BE28E06B6D84C028 /* ABGeoService.m */,
-				69801F5E130D2C17BF9F2384 /* ABGeoService.h */,
+				69801C26BE28E06B6D84C028 /* ABGeoDataStore.m */,
+				69801F5E130D2C17BF9F2384 /* ABGeoDataStore.h */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -266,6 +266,7 @@
 		69801165044C54F14B819DCC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = Ackbox;
 			};
 			buildConfigurationList = 6980162B341268A62F637575 /* Build configuration list for PBXProject "A3" */;
@@ -319,7 +320,7 @@
 				69801A191283502E2C6E0F9B /* ABPictureListViewController.m in Sources */,
 				69801B57A645F1A22597974C /* ABGeoPicture.m in Sources */,
 				6980165B606E47D3CE2EDB99 /* ABInteractionService.m in Sources */,
-				69801E0FBD4345204EA42211 /* ABGeoService.m in Sources */,
+				69801E0FBD4345204EA42211 /* ABGeoDataStore.m in Sources */,
 				69801F498471725C6C6D006B /* ABViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -387,7 +388,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -448,7 +448,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -517,6 +516,7 @@
 				698015BA1DF2406F62E59174 /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		69801CE9EF09C3177EFE1092 /* Build configuration list for PBXNativeTarget "A3Tests" */ = {
 			isa = XCConfigurationList;
@@ -525,6 +525,7 @@
 				69801EBCFD34738BB0A2410B /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
