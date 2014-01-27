@@ -1,0 +1,8 @@
+/****************************************************************************/
+/* Localization file */
+
+
+"kPhotoTakenMessage" = "Photo taken!.";
+"kErrorAccelerometerMessage" = "Error reading accelerometer data.";
+"kErrorMessageTitle" = "Error message";
+"kInfoMessageTitle" = "Information message";
