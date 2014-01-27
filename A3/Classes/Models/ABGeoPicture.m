@@ -6,9 +6,8 @@
 #import "ABGeoPicture.h"
 
 
-@implementation ABGeoPicture {
+@implementation ABGeoPicture
 
-}
 - (NSString *)title {
     return @"";
 }

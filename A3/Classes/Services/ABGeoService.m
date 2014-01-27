@@ -8,7 +8,6 @@
 
 @implementation ABGeoService
 
-
 + (ABGeoService *)sharedInstance {
     static ABGeoService *_instance = nil;
 

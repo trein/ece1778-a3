@@ -51,8 +51,20 @@
 }
 
 - (void)accelerometerDidAccelerate:(CMAccelerometerData *)acceleration withError:(NSError *)error {
-    NSLog(@"Received accelerometer update.");
+    NSLog(@"[%@] Received accelerometer update %@.", self, acceleration);
 
+    if (error) {
+        NSLog(@"%@", error);
+        [[NSNotificationCenter defaultCenter] postNotificationName:kOperationFailure
+                                                            object:NSLocalizedString(@"kErrorAccelerometerMessage", @"Error reading accelerometer data.")];
+    } else {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kOperationSuccess
+                                                            object:NSLocalizedString(@"kPhotoTakenMessage", @"Photo taken!.")];
+    }
+}
+
+- (void)interact {
+    NSError *error = nil;
     if (error) {
         NSLog(@"%@", error);
         [[NSNotificationCenter defaultCenter] postNotificationName:kOperationFailure
@@ -90,5 +102,4 @@
 - (NSString *)description {
     return @"Interaction Service";
 }
-
 @end

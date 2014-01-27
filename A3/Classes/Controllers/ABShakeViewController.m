@@ -4,6 +4,7 @@
 //
 
 #import "ABShakeViewController.h"
+#import "ABInteractionService.h"
 
 @interface ABShakeViewController ()
 
@@ -11,12 +12,24 @@
 
 @implementation ABShakeViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+    if (motion == UIEventSubtypeMotionShake) {
+        [[ABInteractionService sharedInstance] interact];
+    }
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
+- (BOOL)canBecomeFirstResponder {
+    return YES;
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self becomeFirstResponder];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [self resignFirstResponder];
+    [super viewWillDisappear:animated];
 }
 
 @end

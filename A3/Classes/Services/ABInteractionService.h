@@ -12,5 +12,5 @@
 
 + (ABInteractionService *)sharedInstance;
 - (void)startMonitoring;
-
+- (void)interact;
 @end
