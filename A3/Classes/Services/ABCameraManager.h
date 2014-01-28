@@ -8,6 +8,8 @@
 
 @interface ABCameraManager : NSObject <UIImagePickerControllerDelegate>
 
-- (void)takePictureUsingController:(UIViewController *)controller;
+- (instancetype)initWithController:(UIViewController *)controller;
+
+- (void)takePicture;
 
 @end

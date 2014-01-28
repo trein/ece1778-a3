@@ -15,7 +15,7 @@
 
 - (ABCameraManager *)cameraManager {
     if (_cameraManager == nil) {
-        _cameraManager = [ABCameraManager new];
+        _cameraManager = [[ABCameraManager alloc] initWithController:self];
     }
     return _cameraManager;
 }
@@ -29,7 +29,7 @@
 }
 
 - (void)interact {
-    [self.cameraManager takePictureUsingController:self];
+    [self.cameraManager takePicture];
 }
 
 - (BOOL)canBecomeFirstResponder {

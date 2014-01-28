@@ -24,6 +24,7 @@
 		69801B97CAA827FBDCC3C069 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6980194DBE0238C7E34A4302 /* UIKit.framework */; };
 		69801C2692690505F00A38F7 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69801173EFBEEE00B2F387C9 /* AVFoundation.framework */; };
 		69801E0FBD4345204EA42211 /* ABGeoDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 69801C26BE28E06B6D84C028 /* ABGeoDataStore.m */; };
+		69801E388A9923E77BE4698A /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 698013E11E637F55ED650BB3 /* UIImage+Resize.m */; };
 		69801EF0626C607FE99FFB2F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6980194DBE0238C7E34A4302 /* UIKit.framework */; };
 		69801EF62E42C0943DEC438C /* ABShakeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69801CA4CE885E2E2413F558 /* ABShakeViewController.m */; };
 		69801F39F1372B60B4FA5B71 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 698018A4B55DAD306A24AEE0 /* Main.storyboard */; };
@@ -53,7 +54,9 @@
 		6980114E299800F20291669F /* ABInteractionService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABInteractionService.m; sourceTree = "<group>"; };
 		69801173EFBEEE00B2F387C9 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		698011AC2DA4F95C35BFD3EA /* ABAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABAppDelegate.m; sourceTree = "<group>"; };
+		698012AB54CCD06CA785DF11 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
 		6980130160ED39D8879165AE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		698013E11E637F55ED650BB3 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
 		698013ED6BB5B44C22278499 /* ABAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABAppDelegate.h; sourceTree = "<group>"; };
 		698014962ECDA055C85033DC /* A3Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = A3Tests.m; sourceTree = "<group>"; };
 		69801591CD8A3FB47C3018A3 /* ABPictureListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABPictureListViewController.h; sourceTree = "<group>"; };
@@ -161,6 +164,8 @@
 			isa = PBXGroup;
 			children = (
 				69801709CACD87E7C561837E /* ABConstants.h */,
+				698013E11E637F55ED650BB3 /* UIImage+Resize.m */,
+				698012AB54CCD06CA785DF11 /* UIImage+Resize.h */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -365,6 +370,7 @@
 				69801E0FBD4345204EA42211 /* ABGeoDataStore.m in Sources */,
 				69801F498471725C6C6D006B /* ABViewController.m in Sources */,
 				6980106DE587D38F1FF5413F /* ABCameraManager.m in Sources */,
+				69801E388A9923E77BE4698A /* UIImage+Resize.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
