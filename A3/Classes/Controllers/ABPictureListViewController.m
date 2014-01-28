@@ -56,6 +56,25 @@ static NSString *const kCellId = @"kCellId";
     ABGeoPicture *picture = [[self.dataStore storedPictures] objectAtIndex:indexPath.row];
     ABLog(@"[%@] Selected geo picture %@", self, picture);
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
+    UIViewController *modalController = [[UIViewController alloc] init];
+    modalController.view.backgroundColor = [UIColor blackColor];
+    modalController.view.userInteractionEnabled = YES;
+
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:modalController.view.frame];
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
+    imageView.image = [self.dataStore loadImage:picture.imageName];
+
+    [modalController.view addSubview:imageView];
+
+    UITapGestureRecognizer *modalTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissModalView)];
+    [modalController.view addGestureRecognizer:modalTap];
+
+    [self presentViewController:modalController animated:YES completion:nil];
+}
+
+- (void)dismissModalView {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)viewDidLoad {
