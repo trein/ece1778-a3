@@ -5,6 +5,6 @@
 
 #import <Foundation/Foundation.h>
 
-static const NSString *kOperationSuccess = @"kOperationSuccess";
-static const NSString *kOperationFailure = @"kOperationFailure";
-static const NSString *kDataFile = @"kGeoPictures.data";
+static NSString *const kOperationSuccess = @"kOperationSuccess";
+static NSString *const kOperationFailure = @"kOperationFailure";
+static NSString *const kDataFile = @"kGeoPictures.data";

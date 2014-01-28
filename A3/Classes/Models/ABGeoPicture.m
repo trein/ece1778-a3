@@ -6,10 +6,6 @@
 #import "ABGeoPicture.h"
 
 
-// TODO
-// Add details parameters.
-// Show image when cell clicked.
-
 @implementation ABGeoPicture
 
 - (instancetype)initWithFilename:(NSString *)filename latitude:(double)latitude longitude:(double)longitude {
@@ -27,7 +23,7 @@
 }
 
 - (NSString *)details {
-    return [NSString stringWithFormat:@"Taken @ (%@ : %@)", [self.latitude stringValue], [self.longitude stringValue]];
+    return [NSString stringWithFormat:@"Taken @ (%.4f : %.4f)", [self.latitude doubleValue], [self.longitude doubleValue]];
 }
 
 #pragma mark -

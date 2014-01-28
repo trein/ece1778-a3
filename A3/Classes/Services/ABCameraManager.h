@@ -6,7 +6,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface ABCameraManager : NSObject <UIImagePickerControllerDelegate>
+@interface ABCameraManager : NSObject <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 - (instancetype)initWithController:(UIViewController *)controller;
 
