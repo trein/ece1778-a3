@@ -24,12 +24,8 @@
     if (motion == UIEventSubtypeMotionShake) {
         ABLog(@"[%@] Shake gesture recognized!", self);
         [SVProgressHUD showWithStatus:NSLocalizedString(@"kTakingPictureMessage", @"Taking picture...") maskType:SVProgressHUDMaskTypeBlack];
-        [self performSelectorInBackground:@selector(interact) withObject:self];
+        [self.cameraManager takePicture];
     }
-}
-
-- (void)interact {
-    [self.cameraManager takePicture];
 }
 
 - (BOOL)canBecomeFirstResponder {

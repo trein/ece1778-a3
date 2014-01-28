@@ -13,7 +13,6 @@
 @interface ABCameraManager ()
 @property(nonatomic, weak) UIViewController *controller;
 
-@property(nonatomic, strong) UIImagePickerController *picker;
 @property(nonatomic, strong) AVCaptureStillImageOutput *cameraOutput;
 @property(nonatomic, strong) AVCaptureSession *session;
 @end
@@ -65,6 +64,7 @@
             [self sendErrorNotification];
         } else {
             [self handleCaptureCallback:image];
+            [self sendSuccessNotification];
         }
     });
 }
@@ -111,6 +111,7 @@
                                                 NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:buffer];
                                                 UIImage *image = [[UIImage alloc] initWithData:imageData];
                                                 [self handleCaptureCallback:image];
+                                                [self sendSuccessNotification];
                                             }
                                         }];
 }
@@ -118,6 +119,11 @@
 - (void)sendErrorNotification {
     [[NSNotificationCenter defaultCenter] postNotificationName:kOperationFailure
                                                         object:NSLocalizedString(@"kErrorTakingPhotoMessage", @"Error taking a new photo.")];
+}
+
+- (void)sendSuccessNotification {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kOperationSuccess
+                                                        object:NSLocalizedString(@"kPhotoTakenMessage", @"Photo taken!")];
 }
 
 - (void)handleCaptureCallback:(UIImage *)image {

@@ -53,8 +53,6 @@
                                                             longitude:self.currentLocation.coordinate.longitude];
 
     [geoService addGeoPicture:geoPicture withAssociatedImage:photo];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kOperationSuccess
-                                                        object:NSLocalizedString(@"kPhotoTakenMessage", @"Photo taken!")];
 }
 
 #pragma mark -

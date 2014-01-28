@@ -11,9 +11,12 @@
 
 + (ABGeoDataStore *)sharedInstance;
 
+- (UIImage *)loadImage:(NSString *)name;
+
 - (NSArray *)storedPictures;
 
 - (void)addGeoPicture:(ABGeoPicture *)picture withAssociatedImage:(UIImage *)image;
 
-- (UIImage *)loadImage:(NSString *)name;
+- (void)deleteGeoPicture:(ABGeoPicture *)picture;
+
 @end

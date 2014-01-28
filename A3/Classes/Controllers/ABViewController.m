@@ -34,6 +34,7 @@
 }
 
 - (void)handleSuccess:(NSNotification *)notification {
+    [SVProgressHUD dismiss];
     [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"kCompleteMessage", @"Complete")];
 }
 

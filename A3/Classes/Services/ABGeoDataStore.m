@@ -50,6 +50,15 @@
     return [NSArray arrayWithArray:self.pictures];
 }
 
+- (void)deleteGeoPicture:(ABGeoPicture *)picture {
+    ABLog(@"[%@] Deleting geo picture %@ from file system", self, picture);
+    [self.pictures removeObject:picture];
+    [self deleteImageWithName:picture.imageName];
+    if (![NSKeyedArchiver archiveRootObject:self.pictures toFile:[self createPathForFile:kDataFile]]) {
+        ABLog(@"[%@] Error deleting geo picture %@ from file system", self, picture);
+    }
+}
+
 - (void)addGeoPicture:(ABGeoPicture *)picture withAssociatedImage:(UIImage *)image {
     [self saveImage:image withName:picture.imageName];
     [self saveGeoPicture:picture];
@@ -58,7 +67,6 @@
 - (void)saveGeoPicture:(ABGeoPicture *)picture {
     ABLog(@"[%@] Saving geo picture %@ into file system", self, picture);
     [self.pictures addObject:picture];
-
     if (![NSKeyedArchiver archiveRootObject:self.pictures toFile:[self createPathForFile:kDataFile]]) {
         ABLog(@"[%@] Error saving geo picture %@ into file system", self, picture);
     }
@@ -68,6 +76,15 @@
     ABLog(@"[%@] Saving image %@ into file system", self, name);
     if (![UIImagePNGRepresentation(image) writeToFile:[self createPathForFile:name] atomically:YES]) {
         ABLog(@"[%@] Error saving image %@ into file system", self, name);
+    }
+}
+
+- (void)deleteImageWithName:(NSString *)name {
+    ABLog(@"[%@] Deleting image %@ from file system", self, name);
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSError *error;
+    if (![fileManager removeItemAtPath:[self createPathForFile:name] error:&error]) {
+        ABLog(@"[%@] Error deleting image %@ from file system", self, name);
     }
 }
 

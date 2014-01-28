@@ -50,6 +50,18 @@ static NSString *const kCellId = @"kCellId";
     return [self.dataStore storedPictures].count;
 }
 
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+                                            forRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView beginUpdates];
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        ABGeoPicture *picture = [[self.dataStore storedPictures] objectAtIndex:indexPath.row];
+        [self.dataStore deleteGeoPicture:picture];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+    }
+    [tableView endUpdates];
+    [tableView reloadData];
+}
+
 #pragma mark -
 #pragma mark UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
