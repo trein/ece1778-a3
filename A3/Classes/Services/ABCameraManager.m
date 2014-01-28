@@ -16,7 +16,6 @@
 @property(nonatomic, strong) UIImagePickerController *picker;
 @property(nonatomic, strong) AVCaptureStillImageOutput *cameraOutput;
 @property(nonatomic, strong) AVCaptureSession *session;
-@property(nonatomic, strong) AVCaptureDevice *device;
 @end
 
 @implementation ABCameraManager
@@ -40,14 +39,14 @@
 }
 
 - (void)takePictureUsingImagePicker {
-    self.picker = [[UIImagePickerController alloc] init];
-    self.picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-    self.picker.delegate = self;
-    self.picker.allowsEditing = NO;
-    self.picker.showsCameraControls = NO;
-    [self.controller presentViewController:self.picker animated:YES completion:^{
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    picker.delegate = self;
+    picker.allowsEditing = NO;
+    picker.showsCameraControls = NO;
+    [self.controller presentViewController:picker animated:YES completion:^{
         sleep(1);
-        [self.picker takePicture];
+        [picker takePicture];
     }];
 }
 
@@ -72,8 +71,8 @@
 
 - (void)takePictureUsingAVFramework {
     NSError *error = nil;
-    self.device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-    AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:self.device error:&error];
+    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device error:&error];
 
     if (!input) {
         ABLog(@"[%@] Error trying to open camera: %@", self, error);
@@ -88,57 +87,33 @@
     [self.session addOutput:self.cameraOutput];
     [self.session startRunning];
 
-    [self.device addObserver:self
-                  forKeyPath:NSStringFromSelector(@selector(adjustingExposure))
-                     options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld)
-                     context:NULL];
-    [self.device addObserver:self
-                  forKeyPath:NSStringFromSelector(@selector(adjustingWhiteBalance))
-                     options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld)
-                     context:NULL];
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath
-                      ofObject:(id)object
-                        change:(NSDictionary *)change
-                       context:(void *)context {
-
-    if ([keyPath isEqualToString:NSStringFromSelector(@selector(adjustingExposure))]
-            || [keyPath isEqualToString:NSStringFromSelector(@selector(adjustingWhiteBalance))]) {
-        BOOL stillAdjusting = [change objectForKey:NSKeyValueChangeNewKey];
-        if (!stillAdjusting) {
-            AVCaptureConnection *videoConnection = nil;
-            for (AVCaptureConnection *connection in self.cameraOutput.connections) {
-                for (AVCaptureInputPort *port in [connection inputPorts]) {
-                    if ([[port mediaType] isEqual:AVMediaTypeVideo]) {
-                        videoConnection = connection;
-                        break;
-                    }
-                }
-                if (videoConnection) {
-                    break;
-                }
+    AVCaptureConnection *videoConnection = nil;
+    for (AVCaptureConnection *connection in self.cameraOutput.connections) {
+        for (AVCaptureInputPort *port in [connection inputPorts]) {
+            if ([[port mediaType] isEqual:AVMediaTypeVideo]) {
+                videoConnection = connection;
+                break;
             }
-
-            ABLog(@"[%@] About to request a capture from: %@", self, self.cameraOutput);
-            [self.cameraOutput
-                    captureStillImageAsynchronouslyFromConnection:videoConnection
-                                                completionHandler:^(CMSampleBufferRef buffer, NSError *error) {
-                                                    if (buffer == NULL || error != nil) {
-                                                        ABLog(@"[%@] Error trying to take a new photo", self);
-                                                        [self sendErrorNotification];
-                                                    } else {
-                                                        NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:buffer];
-                                                        UIImage *image = [[UIImage alloc] initWithData:imageData];
-                                                        [self handleCaptureCallback:image];
-                                                    }
-                                                }];
-            [self.device removeObserver:self forKeyPath:NSStringFromSelector(@selector(adjustingExposure))];
-            [self.device removeObserver:self forKeyPath:NSStringFromSelector(@selector(adjustingWhiteBalance))];
+        }
+        if (videoConnection) {
+            break;
         }
     }
-}
 
+    ABLog(@"[%@] About to request a capture from: %@", self, self.cameraOutput);
+    [self.cameraOutput
+            captureStillImageAsynchronouslyFromConnection:videoConnection
+                                        completionHandler:^(CMSampleBufferRef buffer, NSError *error) {
+                                            if (buffer == NULL || error != nil) {
+                                                ABLog(@"[%@] Error trying to take a new photo", self);
+                                                [self sendErrorNotification];
+                                            } else {
+                                                NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:buffer];
+                                                UIImage *image = [[UIImage alloc] initWithData:imageData];
+                                                [self handleCaptureCallback:image];
+                                            }
+                                        }];
+}
 
 - (void)sendErrorNotification {
     [[NSNotificationCenter defaultCenter] postNotificationName:kOperationFailure
