@@ -6,6 +6,7 @@
 #import "ABPictureListViewController.h"
 #import "ABGeoPicture.h"
 #import "ABGeoDataStore.h"
+#import "ABPictureViewController.h"
 
 static NSString *const kCellId = @"kCellId";
 
@@ -29,20 +30,16 @@ static NSString *const kCellId = @"kCellId";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellId];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kCellId];
+        cell.textLabel.font = [UIFont boldSystemFontOfSize:15];
+        cell.textLabel.textColor = [UIColor darkGrayColor];
+        cell.detailTextLabel.font = [UIFont boldSystemFontOfSize:12];
+        cell.detailTextLabel.textColor = [UIColor lightGrayColor];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     ABGeoPicture *picture = [[self.dataStore storedPictures] objectAtIndex:indexPath.row];
-
-    cell.textLabel.font = [UIFont boldSystemFontOfSize:15];
-    cell.textLabel.textColor = [UIColor darkGrayColor];
     cell.textLabel.text = [picture title];
-
-    cell.detailTextLabel.font = [UIFont boldSystemFontOfSize:12];
-    cell.detailTextLabel.textColor = [UIColor lightGrayColor];
     cell.detailTextLabel.text = [picture details];
-
     cell.imageView.image = [self.dataStore loadImage:picture.imageName];
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-
     return cell;
 }
 
@@ -67,30 +64,13 @@ static NSString *const kCellId = @"kCellId";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ABGeoPicture *picture = [[self.dataStore storedPictures] objectAtIndex:indexPath.row];
     ABLog(@"[%@] Selected geo picture %@", self, picture);
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-
-    UIViewController *modalController = [[UIViewController alloc] init];
-    modalController.view.backgroundColor = [UIColor blackColor];
-    modalController.view.userInteractionEnabled = YES;
-
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:modalController.view.frame];
-    imageView.contentMode = UIViewContentModeScaleAspectFit;
-    imageView.image = [self.dataStore loadImage:picture.imageName];
-
-    [modalController.view addSubview:imageView];
-
-    UITapGestureRecognizer *modalTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissModalView)];
-    [modalController.view addGestureRecognizer:modalTap];
+    
+    ABPictureViewController *modalController = [self.storyboard instantiateViewControllerWithIdentifier:@"kPictureViewController"];
+    modalController.picture = picture;
+    modalController.parent = self;
 
     [self presentViewController:modalController animated:YES completion:nil];
-}
-
-- (void)dismissModalView {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

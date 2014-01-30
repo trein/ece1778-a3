@@ -4,8 +4,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MapKit/MapKit.h>
 #import "ABViewController.h"
 
 @interface ABShakeViewController : ABViewController
-
+@property(nonatomic, weak) IBOutlet MKMapView *mapView;
 @end

@@ -28,8 +28,29 @@
     }
 }
 
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context {
+    
+    if ([self.mapView showsUserLocation]) {
+        MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(self.mapView.userLocation.location.coordinate, 500, 500);
+        [self.mapView setRegion:region animated:YES];
+    }
+}
+
 - (BOOL)canBecomeFirstResponder {
     return YES;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self.mapView.userLocation addObserver:self
+                                forKeyPath:@"location"
+                                   options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld)
+                                   context:NULL];
+    
+    self.mapView.showsUserLocation = YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated {

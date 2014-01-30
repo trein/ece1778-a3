@@ -66,7 +66,7 @@
     NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
 
     if (abs(howRecent) < 5.0) {
-        ABLog(@"[%@] Update latitude %+.6f, longitude %+.6f\n", self, newLocation.coordinate.latitude, newLocation.coordinate.longitude);
+//        ABLog(@"[%@] Update latitude %+.6f, longitude %+.6f\n", self, newLocation.coordinate.latitude, newLocation.coordinate.longitude);
         self.currentLocation = newLocation;
     }
 }

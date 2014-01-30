@@ -67,7 +67,8 @@
 - (void)saveGeoPicture:(ABGeoPicture *)picture {
     ABLog(@"[%@] Saving geo picture %@ into file system", self, picture);
     [self.pictures addObject:picture];
-    if (![NSKeyedArchiver archiveRootObject:self.pictures toFile:[self createPathForFile:kDataFile]]) {
+    NSArray *immutableCopy = [NSArray arrayWithArray:self.pictures];
+    if (![NSKeyedArchiver archiveRootObject:immutableCopy toFile:[self createPathForFile:kDataFile]]) {
         ABLog(@"[%@] Error saving geo picture %@ into file system", self, picture);
     }
 }

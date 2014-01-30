@@ -8,12 +8,7 @@
 
 // Private helper methods
 @interface UIImage ()
-- (UIImage *)resizedImage:(CGSize)newSize
-                transform:(CGAffineTransform)transform
-           drawTransposed:(BOOL)transpose
-     interpolationQuality:(CGInterpolationQuality)quality;
 
-- (CGAffineTransform)transformForOrientation:(CGSize)newSize;
 @end
 
 @implementation UIImage (Resize)
@@ -45,8 +40,8 @@
             drawTransposed = NO;
     }
 
-    return [self resizedImage:newSize
-                    transform:[self transformForOrientation:newSize]
+    return [self resizedImageSize:newSize
+                    transform:[self transformForOrientationSize:newSize]
                drawTransposed:drawTransposed
          interpolationQuality:quality];
 }
@@ -83,7 +78,7 @@
 // Returns a copy of the image that has been transformed using the given affine transform and scaled to the new size
 // The new image's orientation will be UIImageOrientationUp, regardless of the current image's orientation
 // If the new size is not integral, it will be rounded up
-- (UIImage *)resizedImage:(CGSize)newSize
+- (UIImage *)resizedImageSize:(CGSize)newSize
                 transform:(CGAffineTransform)transform
            drawTransposed:(BOOL)transpose
      interpolationQuality:(CGInterpolationQuality)quality {
@@ -121,7 +116,7 @@
 }
 
 // Returns an affine transform that takes into account the image orientation when drawing a scaled image
-- (CGAffineTransform)transformForOrientation:(CGSize)newSize {
+- (CGAffineTransform)transformForOrientationSize:(CGSize)newSize {
     CGAffineTransform transform = CGAffineTransformIdentity;
 
     switch (self.imageOrientation) {
@@ -142,6 +137,8 @@
             transform = CGAffineTransformTranslate(transform, 0, newSize.height);
             transform = CGAffineTransformRotate(transform, -M_PI_2);
             break;
+        default:
+            break;
     }
 
     switch (self.imageOrientation) {
@@ -155,6 +152,8 @@
         case UIImageOrientationRightMirrored:  // EXIF = 7
             transform = CGAffineTransformTranslate(transform, newSize.height, 0);
             transform = CGAffineTransformScale(transform, -1, 1);
+            break;
+        default:
             break;
     }
 
