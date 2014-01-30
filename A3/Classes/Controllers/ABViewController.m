@@ -35,7 +35,9 @@
 
 - (void)handleSuccess:(NSNotification *)notification {
     [SVProgressHUD dismiss];
-    [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"kCompleteMessage", @"Complete")];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"kCompleteMessage", @"Complete")];
+    });
 }
 
 - (void)handleFailure:(NSNotification *)notification {

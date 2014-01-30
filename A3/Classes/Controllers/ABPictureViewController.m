@@ -25,6 +25,7 @@
     
     [self.mapView addAnnotation:point];
     [self.mapView setRegion:region animated:YES];
+//    [self.mapView selectAnnotation:point animated:FALSE];
 
     UIImage *image = [[ABGeoDataStore sharedInstance] loadImage:self.picture.imageName];
     UITapGestureRecognizer *modalTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissModalView)];
