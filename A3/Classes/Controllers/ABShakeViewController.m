@@ -9,6 +9,7 @@
 
 @interface ABShakeViewController ()
 @property (nonatomic, strong) ABCameraManager *cameraManager;
+@property (nonatomic) BOOL free;
 @end
 
 @implementation ABShakeViewController
@@ -21,18 +22,28 @@
 }
 
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
-    if (motion == UIEventSubtypeMotionShake) {
+    if (motion == UIEventSubtypeMotionShake && self.free) {
         ABLog(@"[%@] Shake gesture recognized!", self);
+        self.free = NO;
         [SVProgressHUD showWithStatus:NSLocalizedString(@"kTakingPictureMessage", @"Taking picture...") maskType:SVProgressHUDMaskTypeBlack];
         [self.cameraManager takePicture];
     }
+}
+
+- (void)handleSuccess:(NSNotification *)notification {
+    [super handleSuccess:notification];
+    self.free = YES;
+}
+
+- (void)handleFailure:(NSNotification *)notification {
+    [super handleFailure:notification];
+    self.free = YES;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object
                         change:(NSDictionary *)change
                        context:(void *)context {
-    
     if ([self.mapView showsUserLocation]) {
         MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(self.mapView.userLocation.location.coordinate, 500, 500);
         [self.mapView setRegion:region animated:YES];
@@ -45,6 +56,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.free = YES;
     [self.mapView.userLocation addObserver:self
                                 forKeyPath:@"location"
                                    options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld)

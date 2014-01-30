@@ -36,11 +36,11 @@
 
 - (NSMutableArray *)pictures {
     if (_pictures == nil) {
-        NSMutableArray *storedArray = [NSKeyedUnarchiver unarchiveObjectWithFile:[self createPathForFile:kDataFile]];
+        NSArray *storedArray = [NSKeyedUnarchiver unarchiveObjectWithFile:[self createPathForFile:kDataFile]];
         if (storedArray == nil) {
             _pictures = [NSMutableArray new];
         } else {
-            _pictures = storedArray;
+            _pictures = [NSMutableArray arrayWithArray:storedArray];
         }
     }
     return _pictures;
@@ -67,7 +67,7 @@
 - (void)saveGeoPicture:(ABGeoPicture *)picture {
     ABLog(@"[%@] Saving geo picture %@ into file system", self, picture);
     [self.pictures addObject:picture];
-    NSArray *immutableCopy = [NSArray arrayWithArray:self.pictures];
+    NSArray *immutableCopy = [NSMutableArray arrayWithArray:self.pictures];
     if (![NSKeyedArchiver archiveRootObject:immutableCopy toFile:[self createPathForFile:kDataFile]]) {
         ABLog(@"[%@] Error saving geo picture %@ into file system", self, picture);
     }

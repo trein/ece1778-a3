@@ -7,4 +7,6 @@
 
 
 @interface ABViewController : UIViewController
+- (void)handleSuccess:(NSNotification *)notification;
+- (void)handleFailure:(NSNotification *)notification;
 @end
