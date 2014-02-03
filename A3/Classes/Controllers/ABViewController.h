@@ -9,4 +9,6 @@
 @interface ABViewController : UIViewController
 - (void)handleSuccess:(NSNotification *)notification;
 - (void)handleFailure:(NSNotification *)notification;
+- (void)showInfoMessage:(NSString *)message;
+- (void)showErrorMessage:(NSString *)message;
 @end

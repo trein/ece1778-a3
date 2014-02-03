@@ -9,3 +9,4 @@
 "kCompleteMessage" = "Complete";
 "kOK" = "OK";
 "kTakingPictureMessage" = "Taking picture...";
+"kCameraNoFocus" = "Camera was unable to focus. Hold it steady!";
