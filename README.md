@@ -1,7 +1,7 @@
 ECE1778 A3
 ==========
 
-Android app following the requirements of ECE1778 assignment 3.
+iOS app following the requirements of ECE1778 assignment 3.
 
 Requirements
 ------------
